@@ -35,7 +35,7 @@ interface MovementRow {
         <div class="rounded-2xl border border-slate-200 bg-white p-10 text-center dark:border-slate-800 dark:bg-slate-900">
           <p class="text-sm text-slate-500 dark:text-slate-400">{{ 'CASH_REGISTER.no_register' | translate }}</p>
         </div>
-      } @else if (!summary()) {
+      } @else if (!summary() || !session()) {
         <div class="rounded-2xl border border-slate-200 bg-white p-10 text-center dark:border-slate-800 dark:bg-slate-900">
           <p class="text-sm text-slate-500 dark:text-slate-400">{{ 'CASH_REGISTER.no_session' | translate }}</p>
         </div>

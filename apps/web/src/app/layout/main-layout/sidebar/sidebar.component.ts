@@ -1,10 +1,11 @@
-import { Component, computed, inject, input, output, signal } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, computed, DestroyRef, inject, input, output, signal } from '@angular/core';
+import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { LucideAngularModule, ChevronDown } from 'lucide-angular';
 import { AuthService } from '@core/auth/auth.service';
 import { ThemeService } from '@core/services/theme.service';
 import { NAVIGATION_ITEMS, type MenuItem } from '@core/models/menu.model';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-sidebar-section',
@@ -64,14 +65,17 @@ export class SidebarSectionComponent {
   standalone: true,
   imports: [RouterLink, RouterLinkActive, TranslatePipe, LucideAngularModule, SidebarSectionComponent],
   template: `
+    @if (mobileOpen()) {
+      <div class="fixed inset-0 z-40 bg-slate-900/50 lg:hidden" (click)="close.emit()"></div>
+    }
     <aside
-      class="flex h-full shrink-0 flex-col overflow-hidden border-e border-slate-200 bg-white transition-[width] duration-200 dark:border-slate-800 dark:bg-slate-900 lg:static"
-      [class.w-[240px]]="expanded()"
-      [class.w-[68px]]="!expanded()"
+      class="fixed inset-y-0 left-0 z-50 flex h-full w-[240px] shrink-0 flex-col overflow-hidden border-e border-slate-200 bg-white transition-transform duration-200 -translate-x-full lg:static lg:translate-x-0 dark:border-slate-800 dark:bg-slate-900"
+      [class.translate-x-0]="mobileOpen()"
+      [class]="!expanded() ? 'lg:w-[68px]' : ''"
     >
-      <div class="flex h-16 shrink-0 items-center gap-2 border-b border-slate-200 dark:border-slate-800" [class.justify-center]="!expanded()" [class.px-5]="expanded()">
+      <div class="flex h-16 shrink-0 items-center gap-2 border-b border-slate-200 dark:border-slate-800" [class.justify-center]="!expanded() && !mobileOpen()" [class.px-5]="expanded() || mobileOpen()">
         <img src="/images/logo.svg" alt="PharmaPro" class="h-8 w-8 shrink-0" />
-        @if (expanded()) {
+        @if (expanded() || mobileOpen()) {
           <span class="text-lg font-bold text-primary-700 dark:text-primary-400">PharmaPro</span>
         }
       </div>
@@ -83,20 +87,20 @@ export class SidebarSectionComponent {
               <app-sidebar-section
                 [item]="item"
                 [open]="!!openGroups()[item.key]"
-                [collapsed]="!expanded()"
+                [collapsed]="!expanded() && !mobileOpen()"
                 (toggle)="toggleGroup($event)"
               />
             } @else {
-              <li [attr.title]="!expanded() ? (item.label | translate) : null">
+              <li [attr.title]="!expanded() && !mobileOpen() ? (item.label | translate) : null">
                 <a
                   [routerLink]="item.route"
                   routerLinkActive="bg-primary-50 text-primary-700 dark:bg-primary-900/30 dark:text-primary-300"
                   [routerLinkActiveOptions]="{ exact: item.route === '/dashboard' }"
                   class="flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-slate-600 transition hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800"
-                  [class.justify-center]="!expanded()"
+                  [class.justify-center]="!expanded() && !mobileOpen()"
                 >
                   <lucide-angular [img]="item.icon" class="h-5 w-5 shrink-0"></lucide-angular>
-                  @if (expanded()) {
+                  @if (expanded() || mobileOpen()) {
                     <span>{{ item.label | translate }}</span>
                   }
                 </a>
@@ -106,7 +110,7 @@ export class SidebarSectionComponent {
         </ul>
       </nav>
 
-      @if (expanded()) {
+      @if (expanded() || mobileOpen()) {
         <div class="border-t border-slate-200 px-4 py-3 dark:border-slate-800">
           <p class="text-xs text-slate-400">{{ 'SIDEBAR.version' | translate }} 1.0.0</p>
         </div>
@@ -116,9 +120,22 @@ export class SidebarSectionComponent {
 })
 export class SidebarComponent {
   private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
+  private readonly destroyRef = inject(DestroyRef);
   protected readonly theme = inject(ThemeService);
   readonly expanded = input(true);
+  readonly mobileOpen = input(false);
+  readonly close = output<void>();
   readonly openGroups = signal<Record<string, boolean>>({});
+
+  private readonly navSub: import('rxjs').Subscription;
+
+  constructor() {
+    this.navSub = this.router.events.pipe(filter((e) => e instanceof NavigationEnd)).subscribe(() => {
+      if (this.mobileOpen()) this.close.emit();
+    });
+    this.destroyRef.onDestroy(() => this.navSub.unsubscribe());
+  }
 
   protected readonly visibleItems = computed(() =>
     NAVIGATION_ITEMS.filter((item) => !item.permission || this.authService.hasPermission(item.permission)),
