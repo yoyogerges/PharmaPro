@@ -1,4 +1,4 @@
-import type { PurchaseOrderStatus } from './enums';
+import type { PurchaseOrderStatus } from './enums.js';
 
 export interface PurchaseOrder {
   id: string;
@@ -125,3 +125,4 @@ export interface PurchaseReturnListItem {
   product?: { id: string; name: string } | null;
   batch?: { id: string; batchNumber: string } | null;
 }
+

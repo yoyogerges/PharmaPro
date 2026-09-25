@@ -1,4 +1,4 @@
-import type { UserStatus } from './enums';
+import type { UserStatus } from './enums.js';
 
 export interface User {
   id: string;
@@ -87,3 +87,4 @@ export interface UpdateUserInput {
 
 /** Full permission key, e.g. 'products.create' */
 export type PermissionKeyString = `${string}.${string}`;
+

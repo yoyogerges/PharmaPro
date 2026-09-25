@@ -1,4 +1,4 @@
-import type { PaymentMethod, PaymentStatus, SaleStatus } from './enums';
+import type { PaymentMethod, PaymentStatus, SaleStatus } from './enums.js';
 
 export interface Sale {
   id: string;
@@ -95,3 +95,4 @@ export interface SalesReturnItem {
   reason?: string | null;
   product?: { id: string; name: string } | null;
 }
+

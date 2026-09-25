@@ -1,4 +1,4 @@
-import type { PrescriptionStatus } from './enums';
+import type { PrescriptionStatus } from './enums.js';
 
 export interface Prescription {
   id: string;
@@ -55,3 +55,4 @@ export interface DispenseInput {
   items: { prescriptionItemId: string; quantity: number }[];
   notes?: string;
 }
+

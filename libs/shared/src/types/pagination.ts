@@ -1,4 +1,4 @@
-import { createMeta, type PaginationMeta } from './api-response';
+import { createMeta, type PaginationMeta } from './api-response.js';
 
 export interface PaginationQuery {
   page?: number;
@@ -32,3 +32,4 @@ export function formatPagination(
 ): PaginationMeta {
   return createMeta(page, limit, total);
 }
+

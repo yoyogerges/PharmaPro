@@ -58,3 +58,4 @@ export const NotificationTypes = [
   'PURCHASE_REQUEST', 'SYSTEM', 'INFO', 'WARNING', 'ERROR',
 ] as const;
 export type NotificationType = (typeof NotificationTypes)[number];
+

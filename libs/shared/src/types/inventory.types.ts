@@ -1,4 +1,4 @@
-import type { InventoryMovementType, StockAdjustmentStatus } from './enums';
+import type { InventoryMovementType, StockAdjustmentStatus } from './enums.js';
 
 export interface Batch {
   id: string;
@@ -80,3 +80,4 @@ export interface ExpiryInfo {
   daysToExpiry: number;
   status: 'EXPIRED' | 'NEAR_EXPIRY' | 'OK';
 }
+

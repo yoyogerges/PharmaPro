@@ -4,7 +4,7 @@ import type {
   ExpenseStatus,
   PaymentMethod,
   PaymentType,
-} from './enums';
+} from './enums.js';
 
 export interface ExpenseCategory {
   id: string;
@@ -86,3 +86,4 @@ export interface CashMovement {
   description?: string | null;
   createdAt: string;
 }
+

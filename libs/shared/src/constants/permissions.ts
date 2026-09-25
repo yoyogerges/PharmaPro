@@ -188,3 +188,4 @@ export const PERMISSION_DEFINITIONS: PermissionDefinition[] = [
 export const PERMISSION_MODULES = Array.from(
   new Set(PERMISSION_DEFINITIONS.map((p) => p.module)),
 );
+

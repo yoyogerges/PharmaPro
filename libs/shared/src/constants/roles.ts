@@ -1,4 +1,4 @@
-import type { PermissionSlug } from './permissions';
+import type { PermissionSlug } from './permissions.js';
 
 export interface RoleDefinition {
   name: string;
@@ -150,3 +150,4 @@ export const ROLE_PERMISSIONS: Record<RoleName, PermissionSlug[]> = {
 };
 
 export const enumToPermissionList = (roleName: RoleName): PermissionSlug[] => ROLE_PERMISSIONS[roleName];
+

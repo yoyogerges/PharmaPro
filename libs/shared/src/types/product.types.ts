@@ -1,4 +1,4 @@
-import type { DosageForm } from './enums';
+import type { DosageForm } from './enums.js';
 
 export interface ProductCategory {
   id: string;
@@ -69,3 +69,4 @@ export interface Product {
   stockQuantity?: number;
   totalQuantity?: number;
 }
+
