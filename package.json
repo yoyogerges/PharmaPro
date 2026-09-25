@@ -12,7 +12,7 @@
     "dev": "concurrently -n api,web -c cyan,green \"npm run dev:api\" \"npm run dev:web\"",
     "dev:api": "npm run start:dev --workspace @pharmapro/api",
     "dev:web": "npm run start --workspace @pharmapro/web",
-    "build": "npm run build:api && npm run build:web",
+    "build": "npm run build:shared && npm run build:api && npm run build:web",
     "build:api": "npm run build --workspace @pharmapro/api",
     "build:web": "npm run build --workspace @pharmapro/web",
     "test": "npm run test --workspace @pharmapro/api",
@@ -27,7 +27,8 @@
     "db:down": "docker compose down",
     "db:reset": "docker compose down && docker compose up -d && prisma migrate reset --force && prisma db seed",
     "setup": "npm install && docker compose up -d && npm run prisma:generate && npm run prisma:migrate && npm run prisma:seed",
-    "setup:shell": "node scripts/setup.js"
+    "setup:shell": "node scripts/setup.js",
+    "build:shared": "npm run build --workspace @pharmapro/shared"
   },
   "prisma": {
     "seed": "tsx prisma/seed/index.ts"
