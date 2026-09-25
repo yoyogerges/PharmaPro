@@ -42,7 +42,8 @@ export class AuthService {
       const res = await firstValueFrom(this.api.get<AuthUser>('/auth/me'));
       this.user.set(res);
     } catch {
-      this.logout();
+      this.tokenService.clear();
+      this.user.set(EMPTY_USER);
     } finally {
       this.isLoading.set(false);
     }
