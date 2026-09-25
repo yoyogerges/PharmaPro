@@ -26,8 +26,14 @@ export const ENV = {
   get refreshTokenTtl() {
     return process.env.JWT_REFRESH_TTL ?? '7d';
   },
-  get corsOrigins() {
-    return (process.env.CORS_ORIGINS ?? 'http://localhost:4200').split(',').map((s) => s.trim());
+  get corsOrigins(): (string | RegExp)[] {
+    const configured = (process.env.CORS_ORIGINS ?? 'http://localhost:4200')
+      .split(',')
+      .map((s) => s.trim())
+      .filter(Boolean);
+    const origins: (string | RegExp)[] = [...new Set([...configured, this.frontendUrl])];
+    origins.push(/^https:\/\/.+\.vercel\.app$/);
+    return origins;
   },
   get frontendUrl() {
     return process.env.FRONTEND_URL ?? 'http://localhost:4200';

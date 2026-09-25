@@ -43,10 +43,12 @@ import { LanguageSwitcherComponent } from '@shared/components/language-switcher/
 
         <form [formGroup]="form" (ngSubmit)="onSubmit()" class="space-y-4">
           <div>
-            <label class="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
+            <label for="login-email" class="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
               {{ 'AUTH.email_label' | translate }}
             </label>
             <input
+              id="login-email"
+              name="email"
               type="email"
               formControlName="email"
               autocomplete="username"
@@ -56,7 +58,7 @@ import { LanguageSwitcherComponent } from '@shared/components/language-switcher/
           </div>
           <div>
             <div class="mb-1.5 flex items-center justify-between">
-              <label class="text-sm font-medium text-slate-700 dark:text-slate-300">
+              <label for="login-password" class="text-sm font-medium text-slate-700 dark:text-slate-300">
                 {{ 'AUTH.password_label' | translate }}
               </label>
               <a routerLink="/forgot-password" class="text-xs text-primary-600 hover:text-primary-700 dark:text-primary-400">
@@ -65,6 +67,8 @@ import { LanguageSwitcherComponent } from '@shared/components/language-switcher/
             </div>
             <div class="relative">
               <input
+                id="login-password"
+                name="password"
                 [type]="showPassword ? 'text' : 'password'"
                 formControlName="password"
                 autocomplete="current-password"
@@ -83,7 +87,7 @@ import { LanguageSwitcherComponent } from '@shared/components/language-switcher/
           </div>
 
           <div class="flex items-center gap-2">
-            <input id="remember" type="checkbox" formControlName="remember"
+            <input id="remember" name="remember" type="checkbox" formControlName="remember"
               class="h-4 w-4 rounded border-slate-300 text-primary-600 focus:ring-primary-500" />
             <label for="remember" class="text-sm text-slate-600 dark:text-slate-300">
               {{ 'AUTH.remember_me' | translate }}

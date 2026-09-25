@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, input, signal } from '@angular/core';
 import { type AbstractControl } from '@angular/forms';
 import { TranslatePipe } from '@ngx-translate/core';
 
@@ -9,7 +9,7 @@ import { TranslatePipe } from '@ngx-translate/core';
   template: `
     <div class="relative">
       @if (label()) {
-        <label class="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
+        <label [attr.for]="fieldId() || null" class="mb-1.5 block text-sm font-medium text-slate-700 dark:text-slate-300">
           {{ label() }}
           @if (required()) {
             <span class="text-red-500">*</span>
@@ -26,11 +26,30 @@ import { TranslatePipe } from '@ngx-translate/core';
     </div>
   `,
 })
-export class FormFieldComponent {
+export class FormFieldComponent implements AfterViewInit {
   readonly label = input<string>();
   readonly hint = input<string>();
   readonly required = input(false);
   readonly control = input<AbstractControl | null>(null);
+  readonly forId = input<string>();
+
+  constructor(private readonly hostEl: ElementRef<HTMLElement>) {}
+
+  protected readonly fieldId = signal<string | null>(null);
+
+  static nextId = 0;
+
+  ngAfterViewInit(): void {
+    const el = this.hostEl.nativeElement.querySelector('input, select, textarea');
+    if (!el) return;
+    FormFieldComponent.nextId += 1;
+    const id = this.forId() || el.id || `ff-${FormFieldComponent.nextId}`;
+    el.id = id;
+    if (el instanceof HTMLInputElement || el instanceof HTMLSelectElement || el instanceof HTMLTextAreaElement) {
+      if (!el.name) el.name = el.id;
+    }
+    this.fieldId.set(id);
+  }
 
   errorKey(): string | null {
     const control = this.control();

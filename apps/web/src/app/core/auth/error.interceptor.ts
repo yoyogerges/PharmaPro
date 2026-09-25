@@ -5,6 +5,8 @@ import { NotificationService } from '@core/services/notification.service';
 import { AuthService } from './auth.service';
 import type { ErrorResponse } from '@pharmapro/shared';
 
+let lastNetworkToastAt = 0;
+
 export const errorInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
   next: HttpHandlerFn,
@@ -15,11 +17,11 @@ export const errorInterceptor: HttpInterceptorFn = (
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
       if (error.status === 0) {
-        notifications.error(
-          'COMMON.errors.network',
-          'COMMON.errors.network_title',
-          7000,
-        );
+        const now = Date.now();
+        if (now - lastNetworkToastAt >= 15_000) {
+          lastNetworkToastAt = now;
+          notifications.error('COMMON.errors.network', 'COMMON.errors.network_title', 7000);
+        }
       } else if (error.status >= 500) {
         notifications.error('COMMON.errors.server', 'COMMON.errors.server_title');
       } else if (error.status === 429) {

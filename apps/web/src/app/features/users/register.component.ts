@@ -29,29 +29,29 @@ interface RoleOption {
       <div class="rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900">
         <form [formGroup]="form" (ngSubmit)="submit()" class="space-y-5">
           <div class="grid gap-4 sm:grid-cols-2">
-            <app-form-field [label]="('USERS.email' | translate)" [required]="true" [control]="form.controls.email">
-              <input type="email" formControlName="email" class="form-input" [placeholder]="'USERS.email' | translate" />
+            <app-form-field [label]="('USERS.email' | translate)" [required]="true" [control]="form.controls.email" forId="reg-email">
+              <input #field id="reg-email" name="email" type="email" formControlName="email" class="form-input" [placeholder]="'USERS.email' | translate" />
             </app-form-field>
-            <app-form-field [label]="('USERS.username' | translate)" [required]="true" [control]="form.controls.username">
-              <input type="text" formControlName="username" class="form-input" />
+            <app-form-field [label]="('USERS.username' | translate)" [required]="true" [control]="form.controls.username" forId="reg-username">
+              <input #field id="reg-username" name="username" type="text" formControlName="username" class="form-input" />
             </app-form-field>
-            <app-form-field [label]="('USERS.password' | translate)" [required]="true" [control]="form.controls.password">
-              <input type="password" formControlName="password" class="form-input" />
+            <app-form-field [label]="('USERS.password' | translate)" [required]="true" [control]="form.controls.password" forId="reg-password">
+              <input #field id="reg-password" name="password" type="password" autocomplete="new-password" formControlName="password" class="form-input" />
             </app-form-field>
-            <app-form-field [label]="('USERS.confirm_password' | translate)" [required]="true" [control]="form.controls.confirmPassword">
-              <input type="password" formControlName="confirmPassword" class="form-input" />
+            <app-form-field [label]="('USERS.confirm_password' | translate)" [required]="true" [control]="form.controls.confirmPassword" forId="reg-confirm">
+              <input #field id="reg-confirm" name="confirmPassword" type="password" autocomplete="new-password" formControlName="confirmPassword" class="form-input" />
             </app-form-field>
-            <app-form-field [label]="('USERS.first_name' | translate)" [control]="form.controls.firstName">
-              <input type="text" formControlName="firstName" class="form-input" />
+            <app-form-field [label]="('USERS.first_name' | translate)" [control]="form.controls.firstName" forId="reg-first">
+              <input #field id="reg-first" name="firstName" type="text" autocomplete="given-name" formControlName="firstName" class="form-input" />
             </app-form-field>
-            <app-form-field [label]="('USERS.last_name' | translate)" [control]="form.controls.lastName">
-              <input type="text" formControlName="lastName" class="form-input" />
+            <app-form-field [label]="('USERS.last_name' | translate)" [control]="form.controls.lastName" forId="reg-last">
+              <input #field id="reg-last" name="lastName" type="text" autocomplete="family-name" formControlName="lastName" class="form-input" />
             </app-form-field>
-            <app-form-field [label]="('USERS.phone' | translate)" [control]="form.controls.phone">
-              <input type="text" formControlName="phone" class="form-input" />
+            <app-form-field [label]="('USERS.phone' | translate)" [control]="form.controls.phone" forId="reg-phone">
+              <input #field id="reg-phone" name="phone" type="tel" autocomplete="tel" formControlName="phone" class="form-input" />
             </app-form-field>
-            <app-form-field [label]="('USERS.status' | translate)" [control]="form.controls.status">
-              <select formControlName="status" class="form-input">
+            <app-form-field [label]="('USERS.status' | translate)" [control]="form.controls.status" forId="reg-status">
+              <select #field id="reg-status" name="status" formControlName="status" class="form-input">
                 @for (s of statuses; track s) {
                   <option [value]="s">{{ s }}</option>
                 }
@@ -63,8 +63,8 @@ interface RoleOption {
             <legend class="px-1 text-sm font-semibold text-slate-600 dark:text-slate-300">{{ 'USERS.roles' | translate }}</legend>
             <div class="flex flex-wrap gap-4">
               @for (role of roleOptions(); track role.id) {
-                <label class="inline-flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300">
-                  <input type="checkbox" [checked]="selectedRoles().has(role.id)" (change)="toggleRole(role.id)" class="h-4 w-4 rounded border-slate-300 text-primary-600 focus:ring-primary-500" />
+                <label class="inline-flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300" [attr.for]="'role-' + role.id">
+                  <input type="checkbox" [id]="'role-' + role.id" name="roles" [value]="role.id" [checked]="selectedRoles().has(role.id)" (change)="toggleRole(role.id)" class="h-4 w-4 rounded border-slate-300 text-primary-600 focus:ring-primary-500" />
                   {{ role.displayName }}
                 </label>
               }
