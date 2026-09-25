@@ -1,0 +1,20 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "types": ["node"],
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "@pharmapro/shared": ["libs/shared/dist"]
+    }
+  },
+  "include": ["prisma/**/*.ts", "scripts/**/*.ts"]
+}

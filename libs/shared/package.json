@@ -1,0 +1,23 @@
+{
+  "name": "@pharmapro/shared",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "PharmaPro - Shared types, enums and constants across API and Web",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "clean": "rimraf dist"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3"
+  }
+}

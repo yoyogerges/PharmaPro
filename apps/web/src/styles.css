@@ -1,0 +1,103 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: 'Inter', 'Tajawal', ui-sans-serif, system-ui, sans-serif;
+
+  --color-primary-50: oklch(0.965 0.045 172.76);
+  --color-primary-100: oklch(0.93 0.08 172.76);
+  --color-primary-200: oklch(0.876 0.13 172.76);
+  --color-primary-300: oklch(0.796 0.175 172.76);
+  --color-primary-400: oklch(0.695 0.21 172.76);
+  --color-primary-500: oklch(0.592 0.226 172.76);
+  --color-primary-600: oklch(0.505 0.201 172.76);
+  --color-primary-700: oklch(0.417 0.165 172.76);
+  --color-primary-800: oklch(0.338 0.132 172.76);
+  --color-primary-900: oklch(0.276 0.101 172.76);
+  --color-primary-950: oklch(0.194 0.061 172.76);
+
+  --color-secondary-50: oklch(0.965 0.02 258.6);
+  --color-secondary-100: oklch(0.925 0.045 258.6);
+  --color-secondary-200: oklch(0.855 0.088 258.6);
+  --color-secondary-300: oklch(0.75 0.13 258.6);
+  --color-secondary-400: oklch(0.635 0.168 258.6);
+  --color-secondary-500: oklch(0.53 0.18 258.6);
+  --color-secondary-600: oklch(0.44 0.158 258.6);
+  --color-secondary-700: oklch(0.365 0.128 258.6);
+  --color-secondary-800: oklch(0.3 0.098 258.6);
+  --color-secondary-900: oklch(0.252 0.075 258.6);
+  --color-secondary-950: oklch(0.175 0.045 258.6);
+
+  --shadow-soft: 0 1px 2px rgb(15 23 42 / 0.04), 0 4px 16px -2px rgb(15 23 42 / 0.08);
+  --shadow-card: 0 1px 3px rgb(15 23 42 / 0.06), 0 8px 24px -4px rgb(15 23 42 / 0.1);
+}
+
+/* ── Base ─────────────────────────────────────────────────────────── */
+html {
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  text-rendering: optimizeLegibility;
+}
+
+[dir='rtl'] {
+  text-align: right;
+}
+
+/* Form inputs */
+.form-input {
+  width: 100%;
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-slate-300, rgb(203 213 225));
+  background-color: var(--color-white, #fff);
+  padding: 0.5rem 0.875rem;
+  font-size: 0.875rem;
+  color: var(--color-slate-800, rgb(30 41 59));
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.form-input::placeholder {
+  color: var(--color-slate-400, rgb(148 163 184));
+}
+.form-input:focus {
+  border-color: var(--color-primary-500);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
+}
+.dark .form-input {
+  background-color: var(--color-slate-800, rgb(30 41 59));
+  color: var(--color-slate-100, rgb(241 245 249));
+  border-color: var(--color-slate-700, rgb(51 65 85));
+}
+.dark .form-input::placeholder {
+  color: var(--color-slate-500, rgb(100 116 139));
+}
+
+/* ── Scrollbar ────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 8px;
+  background: rgb(148 163 184 / 0.4);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(100 116 139 / 0.6);
+}
+
+/* ── Number input arrows removal ──────────────────────────────────── */
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}

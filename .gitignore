@@ -1,0 +1,87 @@
+# Dependencies
+node_modules/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Build outputs
+dist/
+build/
+coverage/
+*.tsbuildinfo
+
+# Angular
+apps/web/.angular/
+apps/web/dist/
+
+# NestJS
+apps/api/dist/
+apps/api/node_modules/
+
+# Prisma
+prisma/migrations/dev/
+*.db
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Testing
+coverage/
+playwright-report/
+test-results/
+apps/web/playwright-report/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Uploads (runtime files)
+apps/api/uploads/
+uploads/
+
+# Docker volumes
+postgres-data/
+redis-data/
+# Audit and temporary files
+.audit-*
+.builds-final-audit.js
+.byte-dump.js
+.catalog-expiry-audit.*
+.definitive-seed-runner.js
+.exact-bytes.json
+.expiry-*.json
+.expiry-*.js
+.final-*
+.giant-seed-apply.js
+.live-*
+.root-tsc-*
+.run-live-seed.js
+.runseed-*
+.seed-*
+.tmp-*
+.tsc-*
+web-build*.log
+web-errors.txt
+
+# Temporary audit/seed artifacts
+.audit.json
+.audit1.js
+.goodsizes.txt
+.seed2-err.txt
+.seed2-res.txt
+.seedexit.txt
+.seedlog.txt
+.seedrun-err.txt
+.seedrun-exit.txt
