@@ -14,7 +14,9 @@
           "builder": "@angular/build:application",
           "options": {
             "browser": "src/main.ts",
-            "polyfills": ["zone.js"],
+            "polyfills": [
+              "zone.js"
+            ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
               {
@@ -26,9 +28,19 @@
                 "input": "src/assets"
               }
             ],
-            "styles": ["src/styles.css"],
+            "styles": [
+              "src/styles.css"
+            ],
             "scripts": [],
-            "allowedCommonJsDependencies": ["apexcharts"]
+            "allowedCommonJsDependencies": [
+              "apexcharts"
+            ],
+            "outputPath": {
+              "base": "dist/web",
+              "browser": "",
+              "server": "server",
+              "media": "media"
+            }
           },
           "configurations": {
             "production": {
