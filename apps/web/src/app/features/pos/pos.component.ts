@@ -79,8 +79,8 @@ const r2 = (n: number) => Math.round(n * 100) / 100;
         </div>
       </header>
 
-      <div class="flex min-h-0 flex-1 gap-4 p-4">
-        <section class="flex min-w-0 flex-1 flex-col gap-3">
+      <div class="flex min-h-0 flex-1 flex-col gap-4 p-4 lg:flex-row">
+        <section class="flex min-h-0 min-w-0 flex-1 flex-col gap-3">
           <div class="grid gap-3 sm:grid-cols-2">
             <div class="relative">
               <lucide-angular [img]="Search" class="absolute start-3 top-2.5 h-4 w-4 text-slate-400"></lucide-angular>
@@ -150,7 +150,7 @@ const r2 = (n: number) => Math.round(n * 100) / 100;
           </div>
         </section>
 
-        <aside class="flex w-full max-w-sm shrink-0 flex-col gap-3 lg:w-96">
+        <aside class="flex max-h-[50vh] w-full flex-col gap-3 lg:max-h-none lg:w-96 lg:shrink-0">
           <div class="flex min-h-0 flex-1 flex-col rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
             <div class="flex items-center justify-between border-b border-slate-100 px-4 py-3 dark:border-slate-800">
               <h2 class="text-sm font-bold text-slate-800 dark:text-slate-100">{{ 'POS.cart' | translate }}</h2>
